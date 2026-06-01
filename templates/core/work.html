@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Our Work - Tosha Mechanics</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: #1a1a2e; color: white; }
+        .header { background: linear-gradient(135deg, #0f3460 0%, #1a1a2e 100%); padding: 40px; text-align: center; }
+        .header h1 { font-size: 42px; }
+        .header span { color: #e94560; }
+        .nav { background: #0f3460; padding: 15px; text-align: center; position: sticky; top: 0; z-index: 100; }
+        .nav a { color: white; margin: 0 15px; text-decoration: none; padding: 8px 16px; border-radius: 5px; }
+        .nav a:hover { background: #e94560; }
+        .container { max-width: 1200px; margin: 50px auto; padding: 20px; }
+        
+        /* Search Bar */
+        .search-section {
+            background: #16213e;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+        .search-input-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .search-input {
+            flex: 1;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 10px;
+            background: #0f3460;
+            color: white;
+            font-size: 16px;
+        }
+        .search-input::placeholder {
+            color: #888;
+        }
+        .search-btn {
+            background: #e94560;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .search-btn:hover {
+            background: #d63a55;
+        }
+        .clear-btn {
+            background: #0f3460;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .clear-btn:hover {
+            background: #1a4a7a;
+        }
+        .search-stats {
+            margin-top: 15px;
+            color: #aaa;
+            font-size: 14px;
+        }
+        
+        /* Filter Bar */
+        .filter-bar {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+            justify-content: center;
+        }
+        .filter-btn {
+            background: #16213e;
+            color: white;
+            padding: 10px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+        .filter-btn.active, .filter-btn:hover {
+            background: #e94560;
+        }
+        
+        /* Projects Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        .project-card {
+            background: #16213e;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .project-image {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            background: #0f3460;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+        }
+        .project-content {
+            padding: 20px;
+        }
+        .project-category {
+            display: inline-block;
+            background: #e94560;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            margin-bottom: 10px;
+        }
+        .project-title {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        .project-description {
+            color: #ccc;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+        .project-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #0f3460;
+            padding-top: 15px;
+            margin-top: 10px;
+        }
+        .project-date {
+            font-size: 12px;
+            color: #888;
+        }
+        .read-more {
+            color: #e94560;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .no-results {
+            text-align: center;
+            padding: 60px;
+            grid-column: 1/-1;
+        }
+        
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+        .modal-content {
+            max-width: 800px;
+            margin: 50px auto;
+            background: #16213e;
+            border-radius: 15px;
+            padding: 30px;
+            position: relative;
+        }
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 40px;
+            cursor: pointer;
+            color: #e94560;
+        }
+        .close-modal:hover {
+            color: white;
+        }
+        .footer {
+            background: #0f3460;
+            text-align: center;
+            padding: 40px;
+            margin-top: 60px;
+        }
+        
+        @media (max-width: 768px) {
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            .modal-content {
+                margin: 20px;
+                padding: 20px;
+            }
+            .search-input-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🔧 Our <span>Engineering & Welding</span> Work</h1>
+        <p>Browse through our completed projects and success stories</p>
+    </div>
+    
+    <div class="nav">
+        <a href="/">🏠 HOME</a>
+        <a href="/work/">🔧 OUR WORK</a>
+        <a href="/case-studies/">📖 CASE STUDIES</a>
+        <a href="/about/">ℹ️ ABOUT</a>
+        {% if user.is_authenticated %}
+            <a href="/accounts/dashboard/">📊 DASHBOARD</a>
+            <a href="/accounts/logout/">🚪 LOGOUT</a>
+        {% else %}
+            <a href="/accounts/login/">🔐 LOGIN</a>
+            <a href="/accounts/signup/">📝 SIGN UP</a>
+        {% endif %}
+    </div>
+    
+    <div class="container">
+        <!-- Search Section -->
+        <div class="search-section">
+            <div class="search-input-group">
+                <input type="text" class="search-input" id="searchInput" placeholder="🔍 Search by title, description, or keywords...">
+                <button class="search-btn" onclick="performSearch()">🔍 Search</button>
+                <button class="clear-btn" onclick="clearSearch()">✖ Clear</button>
+            </div>
+            <div class="search-stats" id="searchStats">
+                Showing <span id="resultCount">{{ posts|length }}</span> projects
+            </div>
+        </div>
+        
+        <!-- Filter Bar -->
+        <div class="filter-bar">
+            <button class="filter-btn active" data-filter="all">All Projects</button>
+            <button class="filter-btn" data-filter="engineering">⚙️ Mechanical Engineering</button>
+            <button class="filter-btn" data-filter="welding">🔥 Welding</button>
+            <button class="filter-btn" data-filter="both">🔧 Both</button>
+        </div>
+        
+        <!-- Projects Grid -->
+        <div class="projects-grid" id="projectsGrid">
+            {% for post in posts %}
+            <div class="project-card" 
+                 data-category="{{ post.category }}" 
+                 data-title="{{ post.title|lower }}" 
+                 data-description="{{ post.description|lower }}"
+                 data-id="{{ post.id }}">
+                <div class="project-image">
+                    {% if post.image %}
+                        <img src="{{ post.image.url }}" alt="{{ post.title }}" style="width: 100%; height: 100%; object-fit: cover;">
+                    {% else %}
+                        🔧 No Image
+                    {% endif %}
+                </div>
+                <div class="project-content">
+                    <span class="project-category">{{ post.get_category_display }}</span>
+                    <h3 class="project-title">{{ post.title }}</h3>
+                    <p class="project-description">{{ post.description|truncatewords:25 }}</p>
+                    <div class="project-meta">
+                        <span class="project-date">{{ post.created_at|date:"M d, Y" }}</span>
+                        <a href="#" class="read-more" onclick="openModal({{ post.id }}); return false;">View Details →</a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="no-results">No projects added yet. Admin can add projects from the admin panel.</div>
+            {% endfor %}
+        </div>
+    </div>
+    
+    <!-- Modal -->
+    <div id="projectModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <div id="modalBody">Loading...</div>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p><strong>Tosha Mechanics</strong> - Engineering & Welding Excellence</p>
+        <p>📍 Serving all of Tanzania | 📞 +255 XXX XXX XXX | ✉️ info@toshamechanics.com</p>
+    </div>
+    
+    <script>
+        // Get all project cards
+        const cards = Array.from(document.querySelectorAll('.project-card'));
+        const resultCountSpan = document.getElementById('resultCount');
+        let currentFilter = 'all';
+        let currentSearch = '';
+        
+        // Filter and search function
+        function filterAndSearch() {
+            let visibleCount = 0;
+            
+            cards.forEach(card => {
+                const category = card.dataset.category;
+                const title = card.dataset.title;
+                const description = card.dataset.description;
+                
+                // Check filter match
+                const matchesFilter = currentFilter === 'all' || category === currentFilter;
+                
+                // Check search match (searches in title AND description)
+                const matchesSearch = currentSearch === '' || 
+                    title.includes(currentSearch) || 
+                    description.includes(currentSearch);
+                
+                // Show/hide based on both conditions
+                if (matchesFilter && matchesSearch) {
+                    card.style.display = 'block';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            
+            // Update result count
+            resultCountSpan.textContent = visibleCount;
+            
+            // Show no results message if needed
+            let noResultsDiv = document.querySelector('.no-results-message');
+            if (visibleCount === 0) {
+                if (!noResultsDiv) {
+                    const grid = document.getElementById('projectsGrid');
+                    const messageDiv = document.createElement('div');
+                    messageDiv.className = 'no-results no-results-message';
+                    messageDiv.innerHTML = `
+                        <div style="text-align: center; padding: 60px;">
+                            <div style="font-size: 64px;">🔍</div>
+                            <h3>No projects found</h3>
+                            <p>Try a different search term or clear the filters</p>
+                            <button onclick="clearAllFilters()" style="background: #e94560; color: white; padding: 10px 20px; border: none; border-radius: 5px; margin-top: 15px; cursor: pointer;">Clear All Filters</button>
+                        </div>
+                    `;
+                    grid.appendChild(messageDiv);
+                }
+            } else {
+                if (noResultsDiv) {
+                    noResultsDiv.remove();
+                }
+            }
+        }
+        
+        // Perform search from button click
+        function performSearch() {
+            const searchBox = document.getElementById('searchInput');
+            currentSearch = searchBox.value.toLowerCase().trim();
+            filterAndSearch();
+        }
+        
+        // Clear search
+        function clearSearch() {
+            document.getElementById('searchInput').value = '';
+            currentSearch = '';
+            filterAndSearch();
+        }
+        
+        // Clear all filters
+        function clearAllFilters() {
+            clearSearch();
+            // Reset active filter button
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.filter === 'all') {
+                    btn.classList.add('active');
+                }
+            });
+            currentFilter = 'all';
+            filterAndSearch();
+        }
+        
+        // Filter button click handlers
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentFilter = btn.dataset.filter;
+                filterAndSearch();
+            });
+        });
+        
+        // Real-time search as user types
+        const searchBox = document.getElementById('searchInput');
+        searchBox.addEventListener('keyup', function(e) {
+            currentSearch = this.value.toLowerCase().trim();
+            filterAndSearch();
+        });
+        
+        // Enter key presses search
+        searchBox.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+        
+        // Modal functions
+        function openModal(id) {
+            fetch(`/project-detail/${id}/`)
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('modalBody').innerHTML = html;
+                    document.getElementById('projectModal').style.display = 'block';
+                    document.body.style.overflow = 'hidden';
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('modalBody').innerHTML = '<p style="color: red;">Error loading project details. Please try again.</p>';
+                });
+        }
+        
+        function closeModal() {
+            document.getElementById('projectModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+        
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            if (event.target === document.getElementById('projectModal')) {
+                closeModal();
+            }
+        }
+        
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            filterAndSearch();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tosha Mechanics</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #1a1a2e;
+            color: white;
+        }
+        .header {
+            background: #0f3460;
+            padding: 40px;
+            text-align: center;
+        }
+        .header h1 {
+            font-size: 48px;
+            margin: 0;
+        }
+        .nav {
+            background: #16213e;
+            padding: 15px;
+            text-align: center;
+        }
+        .nav a {
+            color: #e94560;
+            margin: 0 20px;
+            text-decoration: none;
+            font-size: 18px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+        .services {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        .service-card {
+            background: #0f3460;
+            padding: 25px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .btn {
+            background: #e94560;
+            color: white;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            margin-top: 20px;
+        }
+        .footer {
+            background: #0f3460;
+            text-align: center;
+            padding: 30px;
+            margin-top: 60px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>⚙️ TOSHA MECHANICS 🔧</h1>
+        <p>Mechanical Engineering | Professional Welding | Industrial Fabrication</p>
+    </div>
+    
+    <div class="nav">
+        <a href="/">HOME</a>
+        <a href="/work/">OUR WORK</a>
+        <a href="/about/">ABOUT</a>
+        <a href="/contact/">📞 CONTACT</a>
+        {% if user.is_authenticated %}
+            <a href="/accounts/logout/">LOGOUT</a>
+        {% else %}
+            <a href="/accounts/login/">LOGIN</a>
+        {% endif %}
+    </div>
+    
+    <div class="container">
+        <h2>Our Services</h2>
+        <div class="services">
+            <div class="service-card">
+                <h3>🔧 Mechanical Engineering</h3>
+                <p>CAD design, FEA analysis, prototyping, reverse engineering</p>
+            </div>
+            <div class="service-card">
+                <h3>⚡ Professional Welding</h3>
+                <p>TIG, MIG, Stick, orbital welding, certified professionals</p>
+            </div>
+            <div class="service-card">
+                <h3>🏭 Industrial Fabrication</h3>
+                <p>Custom metal fabrication, assembly, quality control</p>
+            </div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 50px;">
+            <a href="/work/" class="btn">VIEW OUR PROJECTS</a>
+        </div>
+    </div>
+    {% if featured_cases %}
+<div style="margin-top: 60px;">
+    <h2>⭐ Featured Success Stories</h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 20px;">
+        {% for case in featured_cases %}
+        <div style="background: #16213e; border-radius: 10px; overflow: hidden; cursor: pointer;" onclick="window.location.href='/case-studies/'">
+            {% if case.image %}
+                <img src="{{ case.image.url }}" style="width: 100%; height: 200px; object-fit: cover;">
+            {% endif %}
+            <div style="padding: 20px;">
+                <div style="color: #e94560; font-size: 12px;">{{ case.get_category_display }}</div>
+                <h3>{{ case.title }}</h3>
+                <p style="color: #aaa;">📍 {{ case.location }}</p>
+                <p>{{ case.problem|truncatewords:15 }}</p>
+                <span style="color: #e94560;">Read more →</span>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+    
+    <div class="footer">
+        <p>Tosha Mechanics - Engineering & Welding Excellence</p>
+        <p>Contact: info@toshamechanics.com</p>
+    </div>
+</body>
+</html>

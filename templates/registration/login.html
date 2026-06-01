@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login - Tosha Mechanics</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #1a1a2e;
+            color: white;
+        }
+        .header {
+            background: #0f3460;
+            padding: 30px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+        }
+        .container {
+            max-width: 500px;
+            margin: 80px auto;
+            background: #16213e;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #e94560;
+            font-weight: bold;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            background: #0f3460;
+            color: white;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        input:focus {
+            outline: none;
+            border: 2px solid #e94560;
+        }
+        button {
+            background: #e94560;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        button:hover {
+            background: #d63a55;
+        }
+        .error {
+            background: #e94560;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .register-link {
+            text-align: center;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #0f3460;
+        }
+        .register-link a {
+            color: #e94560;
+            text-decoration: none;
+        }
+        .register-link a:hover {
+            text-decoration: underline;
+        }
+        .footer {
+            background: #0f3460;
+            text-align: center;
+            padding: 30px;
+            margin-top: 60px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>⚙️ TOSHA MECHANICS 🔧</h1>
+        <p>Login to Your Account</p>
+    </div>
+    
+    <div class="container">
+        <h2 style="text-align: center; margin-bottom: 30px;">Welcome Back</h2>
+        
+        {% if form.errors %}
+        <div class="error">
+            <strong>❌ Invalid username or password.</strong><br>
+            Please try again.
+        </div>
+        {% endif %}
+        
+        {% if next %}
+            {% if user.is_authenticated %}
+            <div class="error">
+                Your account doesn't have access to this page. To proceed,
+                please login with an account that has access.
+            </div>
+            {% endif %}
+        {% endif %}
+        
+        <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label>Username</label>
+                <input type="text" name="username" placeholder="Enter your username" required autofocus>
+            </div>
+            
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" name="password" placeholder="Enter your password" required>
+            </div>
+            
+            <button type="submit">Login</button>
+            <input type="hidden" name="next" value="{{ next }}">
+        </form>
+        
+        <div class="register-link">
+            <p>Don't have an account? <a href="/accounts/signup/">Sign up here</a></p>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p>Tosha Mechanics - Engineering & Welding Excellence</p>
+        <p style="font-size: 12px;">© 2026 Tosha Mechanics. All rights reserved.</p>
+    </div>
+</body>
+</html>

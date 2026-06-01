@@ -1,0 +1,69 @@
+<style>
+    .modal-detail h2 { color: #e94560; margin-bottom: 10px; }
+    .modal-detail h3 { color: #e94560; margin: 20px 0 10px; }
+    .modal-detail .info { margin: 15px 0; padding: 15px; background: #0f3460; border-radius: 8px; }
+    .modal-detail .info-item { margin: 10px 0; }
+    .modal-detail .info-label { font-weight: bold; color: #e94560; }
+    .modal-detail .problem-box, .modal-detail .solution-box, .modal-detail .results-box { 
+        padding: 20px; border-radius: 10px; margin: 15px 0; 
+    }
+    .modal-detail .problem-box { background: #2c1a1e; border-left: 4px solid #e74c3c; }
+    .modal-detail .solution-box { background: #1a2e1e; border-left: 4px solid #27ae60; }
+    .modal-detail .results-box { background: #1a2a3e; border-left: 4px solid #3498db; }
+    .modal-detail .image-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0; }
+    .modal-detail .compare-img { width: 100%; border-radius: 10px; }
+    .modal-detail .compare-label { text-align: center; margin-top: 5px; color: #e94560; font-weight: bold; }
+</style>
+
+<div class="modal-detail">
+    <h2>{{ case.title }}</h2>
+    
+    <div class="info">
+        <div class="info-item"><span class="info-label">🔧 Service:</span> {{ case.get_category_display }}</div>
+        <div class="info-item"><span class="info-label">👤 Client:</span> {{ case.client_name|default:"Confidential" }}</div>
+        <div class="info-item"><span class="info-label">📍 Location:</span> {{ case.location }}</div>
+        <div class="info-item"><span class="info-label">📅 Completed:</span> {{ case.created_at|date:"F Y" }}</div>
+    </div>
+    
+    {% if case.image %}
+        <img src="{{ case.image.url }}" alt="{{ case.title }}" style="width: 100%; border-radius: 10px; margin: 15px 0;">
+    {% endif %}
+    
+    <div class="problem-box">
+        <h3>⚠️ The Problem</h3>
+        <p>{{ case.problem }}</p>
+    </div>
+    
+    <div class="solution-box">
+        <h3>🔧 The Solution</h3>
+        <p>{{ case.solution }}</p>
+    </div>
+    
+    {% if case.results %}
+    <div class="results-box">
+        <h3>✅ Results & Impact</h3>
+        <p>{{ case.results }}</p>
+    </div>
+    {% endif %}
+    
+    {% if case.before_image or case.after_image %}
+    <div class="image-compare">
+        {% if case.before_image %}
+        <div>
+            <img src="{{ case.before_image.url }}" class="compare-img">
+            <div class="compare-label">🔴 BEFORE</div>
+        </div>
+        {% endif %}
+        {% if case.after_image %}
+        <div>
+            <img src="{{ case.after_image.url }}" class="compare-img">
+            <div class="compare-label">🟢 AFTER</div>
+        </div>
+        {% endif %}
+    </div>
+    {% endif %}
+    
+    <div style="margin-top: 30px; text-align: center;">
+        <a href="/quotes/request/" style="background: #e94560; color: white; padding: 12px 30px; text-decoration: none; border-radius: 8px; display: inline-block;">Need similar help? Request Quote →</a>
+    </div>
+</div>
