@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard - Tosha Mechanics</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #1a1a2e;
+            color: white;
+        }
+        .header {
+            background: #0f3460;
+            padding: 30px;
+            text-align: center;
+        }
+        .nav {
+            background: #16213e;
+            padding: 15px;
+            text-align: center;
+        }
+        .nav a {
+            color: #e94560;
+            margin: 0 20px;
+            text-decoration: none;
+            font-size: 18px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+        .card {
+            background: #16213e;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        .btn {
+            background: #e94560;
+            color: white;
+            padding: 10px 25px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+        }
+        .footer {
+            background: #0f3460;
+            text-align: center;
+            padding: 30px;
+            margin-top: 60px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>⚙️ Welcome, {{ user.username }}! 🔧</h1>
+    </div>
+    
+    <div class="nav">
+        <a href="/">HOME</a>
+        <a href="/work/">OUR WORK</a>
+        <a href="/about/">ABOUT</a>
+        <a href="/accounts/dashboard/">DASHBOARD</a>
+        <a href="/accounts/logout/">LOGOUT</a>
+    </div>
+    
+    <div class="container">
+        <div class="card">
+            <h2>📋 Request a Quote</h2>
+            <p>Need engineering or welding services? Submit a quote request and we'll get back to you within 24 hours.</p>
+            <a href="/quotes/request/" class="btn">Request New Quote</a>
+	    <a href="/quotes/my-quotes/" class="btn" style="background: #27ae60;">View My Quotes</a>
+        </div>
+        
+        <div class="card">
+            <h2>📄 Your Recent Quotes</h2>
+            <p>You haven't submitted any quotes yet. Click the button above to get started.</p>
+        </div>
+        
+        <div class="card">
+            <h2>🔧 Saved Projects</h2>
+            <p>Save interesting projects from our portfolio to review them later.</p>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p>Tosha Mechanics - Engineering & Welding Excellence</p>
+    </div>
+</body>
+</html>

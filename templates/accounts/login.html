@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login - Tosha Mechanics</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #1a1a2e;
+            color: white;
+        }
+        .header {
+            background: #0f3460;
+            padding: 30px;
+            text-align: center;
+        }
+        .container {
+            max-width: 500px;
+            margin: 80px auto;
+            background: #16213e;
+            padding: 40px;
+            border-radius: 10px;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            background: #0f3460;
+            color: white;
+        }
+        button {
+            background: #e94560;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+        }
+        .btn-link {
+            background: transparent;
+            color: #e94560;
+            text-decoration: none;
+        }
+        .error {
+            background: #e94560;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .footer {
+            background: #0f3460;
+            text-align: center;
+            padding: 30px;
+            margin-top: 60px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>⚙️ TOSHA MECHANICS 🔧</h1>
+    </div>
+    
+    <div class="container">
+        <h2>Login to Your Account</h2>
+        
+        {% if form.errors %}
+        <div class="error">
+            Invalid username or password. Please try again.
+        </div>
+        {% endif %}
+        
+        <form method="post">
+            {% csrf_token %}
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <button type="submit">Login</button>
+        </form>
+        
+        <p style="text-align: center; margin-top: 20px;">
+            Don't have an account? 
+            <a href="/accounts/signup/" style="color: #e94560;">Sign up here</a>
+        </p>
+    </div>
+    
+    <div class="footer">
+        <p>Tosha Mechanics - Engineering & Welding Excellence</p>
+    </div>
+</body>
+</html>

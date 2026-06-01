@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>About - Tosha Mechanics</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #1a1a2e;
+            color: white;
+        }
+        .header {
+            background: #0f3460;
+            padding: 30px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+        }
+        .nav {
+            background: #16213e;
+            padding: 15px;
+            text-align: center;
+        }
+        .nav a {
+            color: #e94560;
+            margin: 0 20px;
+            text-decoration: none;
+            font-size: 18px;
+        }
+        .nav a:hover {
+            color: white;
+        }
+        .container {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        .card {
+            background: #16213e;
+            padding: 40px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        .card h2 {
+            color: #e94560;
+            margin-top: 0;
+        }
+        .services-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .services-list li {
+            background: #0f3460;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .footer {
+            background: #0f3460;
+            text-align: center;
+            padding: 30px;
+            margin-top: 60px;
+        }
+        .btn {
+            background: #e94560;
+            color: white;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>⚙️ About Tosha Mechanics 🔧</h1>
+        <p>Engineering & Welding Excellence</p>
+    </div>
+    
+    <div class="nav">
+        <a href="/">HOME</a>
+        <a href="/work/">OUR WORK</a>
+        <a href="/about/">ABOUT</a>
+        {% if user.is_authenticated %}
+            <a href="/accounts/dashboard/">DASHBOARD</a>
+            <a href="/accounts/logout/">LOGOUT</a>
+        {% else %}
+            <a href="/accounts/login/">LOGIN</a>
+            <a href="/accounts/signup/">SIGN UP</a>
+        {% endif %}
+    </div>
+    
+    <div class="container">
+        <div class="card">
+            <h2>🏭 Who We Are</h2>
+            <p>Tosha Mechanics is a premier provider of mechanical engineering and professional welding services based in Tanzania. With years of experience in heavy industry, we deliver precision, quality, and reliability to every project.</p>
+        </div>
+        
+        <div class="card">
+            <h2>🎯 Our Mission</h2>
+            <p>To provide exceptional engineering and welding solutions that exceed client expectations while maintaining the highest safety and quality standards.</p>
+        </div>
+        
+        <div class="card">
+            <h2>🔧 Our Expertise</h2>
+            <ul class="services-list">
+                <li>⚙️ Mechanical Design & Analysis</li>
+                <li>🔥 Structural & Pipeline Welding</li>
+                <li>🏗️ Custom Fabrication</li>
+                <li>🔩 On-site Repair & Maintenance</li>
+                <li>✅ Quality Control & Inspection</li>
+                <li>📐 CAD & FEA Analysis</li>
+                <li>⚡ TIG/MIG/Stick Welding</li>
+                <li>📊 Project Management</li>
+            </ul>
+        </div>
+        
+        <div class="card">
+            <h2>📞 Contact Us</h2>
+            <p><strong>Phone:</strong> +255 752547200</p>
+            <p><strong>Email:</strong> info@toshamechanics.com</p>
+            <p><strong>Location:</strong> Tanzania-songwe-mbozi-iyula</p>
+            <p><strong>Hours:</strong> Monday - Friday: 8:00 AM - 6:00 PM</p>
+            <a href="/work/" class="btn">View Our Work</a>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p>Tosha Mechanics - Engineering & Welding Excellence</p>
+        <p style="font-size: 12px;">© 2026 Tosha Mechanics. All rights reserved.</p>
+    </div>
+</body>
+</html>
