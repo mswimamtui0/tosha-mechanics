@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sign Up - Tosha Mechanics</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #1a1a2e;
+            color: white;
+        }
+        .header {
+            background: #0f3460;
+            padding: 30px;
+            text-align: center;
+        }
+        .container {
+            max-width: 500px;
+            margin: 80px auto;
+            background: #16213e;
+            padding: 40px;
+            border-radius: 10px;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            background: #0f3460;
+            color: white;
+        }
+        button {
+            background: #e94560;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+        }
+        .errorlist {
+            color: #e94560;
+            list-style: none;
+            padding: 0;
+        }
+        .helptext {
+            font-size: 12px;
+            color: #888;
+            display: block;
+            margin-bottom: 10px;
+        }
+        .footer {
+            background: #0f3460;
+            text-align: center;
+            padding: 30px;
+            margin-top: 60px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>⚙️ TOSHA MECHANICS 🔧</h1>
+        <p>Create Your Account</p>
+    </div>
+    
+    <div class="container">
+        <h2>Sign Up</h2>
+        
+        <form method="post">
+            {% csrf_token %}
+            {% for field in form %}
+                <div>
+                    <label>{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.help_text %}
+                        <small class="helptext">{{ field.help_text }}</small>
+                    {% endif %}
+                    {% if field.errors %}
+                        <ul class="errorlist">
+                            {% for error in field.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+            {% endfor %}
+            <button type="submit">Sign Up</button>
+        </form>
+        
+        <p style="text-align: center; margin-top: 20px;">
+            Already have an account? 
+            <a href="/accounts/login/" style="color: #e94560;">Login here</a>
+        </p>
+    </div>
+    
+    <div class="footer">
+        <p>Tosha Mechanics - Engineering & Welding Excellence</p>
+    </div>
+</body>
+</html>

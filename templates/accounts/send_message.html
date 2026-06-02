@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Send Message - Tosha Mechanics</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: #1a1a2e; color: white; }
+        .header { background: #0f3460; padding: 30px; text-align: center; }
+        .nav { background: #16213e; padding: 15px; text-align: center; }
+        .nav a { color: #e94560; margin: 0 15px; text-decoration: none; }
+        .container { max-width: 600px; margin: 50px auto; padding: 20px; }
+        .form-card { background: #16213e; padding: 40px; border-radius: 15px; }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; color: #e94560; font-weight: bold; }
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: #0f3460;
+            color: white;
+            font-size: 16px;
+        }
+        button {
+            background: #e94560;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+        }
+        .footer { background: #0f3460; text-align: center; padding: 30px; margin-top: 60px; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📝 Send Message to Tosha Mechanics</h1>
+    </div>
+    
+    <div class="nav">
+        <a href="/">HOME</a>
+        <a href="/work/">WORK</a>
+        <a href="/accounts/inbox/">INBOX</a>
+        <a href="/accounts/dashboard/">DASHBOARD</a>
+        <a href="/accounts/logout/">LOGOUT</a>
+    </div>
+    
+    <div class="container">
+        <div class="form-card">
+            <h2 style="margin-bottom: 20px;">New Message</h2>
+            
+            {% if messages %}
+                {% for message in messages %}
+                    <div style="background: #27ae60; padding: 10px; border-radius: 5px; margin-bottom: 20px;">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+            
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label>Subject</label>
+                    <input type="text" name="subject" required placeholder="e.g., Question about welding service">
+                </div>
+                <div class="form-group">
+                    <label>Message</label>
+                    <textarea name="message" rows="6" required placeholder="Type your message here..."></textarea>
+                </div>
+                <button type="submit">📤 Send Message</button>
+            </form>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p>Tosha Mechanics - Engineering & Welding Excellence</p>
+    </div>
+</body>
+</html>

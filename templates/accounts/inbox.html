@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Messages - Tosha Mechanics</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: #1a1a2e; color: white; }
+        .header { background: #0f3460; padding: 30px; text-align: center; }
+        .nav { background: #16213e; padding: 15px; text-align: center; }
+        .nav a { color: #e94560; margin: 0 15px; text-decoration: none; }
+        .container { max-width: 1000px; margin: 40px auto; padding: 20px; }
+        .message-card { background: #16213e; border-radius: 10px; margin-bottom: 20px; overflow: hidden; }
+        .message-header { background: #0f3460; padding: 15px 20px; display: flex; justify-content: space-between; }
+        .message-subject { font-weight: bold; color: #e94560; }
+        .message-date { color: #888; font-size: 12px; }
+        .message-body { padding: 20px; color: #ddd; line-height: 1.6; }
+        .reply-form { padding: 20px; border-top: 1px solid #0f3460; background: #1a1a2e; }
+        .reply-input { width: 100%; padding: 10px; border: none; border-radius: 5px; background: #0f3460; color: white; margin-bottom: 10px; }
+        .reply-btn { background: #e94560; color: white; padding: 8px 20px; border: none; border-radius: 5px; cursor: pointer; }
+        .no-messages { text-align: center; padding: 60px; background: #16213e; border-radius: 10px; }
+        .footer { background: #0f3460; text-align: center; padding: 30px; margin-top: 60px; }
+        .new-message { background: #e94560; color: white; padding: 12px 25px; text-decoration: none; border-radius: 5px; display: inline-block; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📬 My Messages</h1>
+        <p>Communicate with the Tosha Mechanics team</p>
+    </div>
+    
+    <div class="nav">
+        <a href="/">HOME</a>
+        <a href="/work/">WORK</a>
+        <a href="/contact/">CONTACT</a>
+        <a href="/accounts/dashboard/">DASHBOARD</a>
+        <a href="/accounts/logout/">LOGOUT</a>
+    </div>
+    
+    <div class="container">
+        <a href="/send-message/" class="new-message">📝 + New Message</a>
+        
+        {% if messages %}
+            {% for msg in messages %}
+            <div class="message-card">
+                <div class="message-header">
+                    <span class="message-subject">{{ msg.subject }}</span>
+                    <span class="message-date">{{ msg.created_at|date:"F d, Y H:i" }}</span>
+                </div>
+                <div class="message-body">
+                    <p><strong>From:</strong> {{ msg.sender.username }}</p>
+                    <p><strong>To:</strong> {% if msg.receiver %}Tosha Mechanics Team{% else %}Admin{% endif %}</p>
+                    <p>{{ msg.message }}</p>
+                </div>
+                {% if msg.sender == user %}
+                <div class="reply-form">
+                    <h4>Reply to this message:</h4>
+                    <form method="post" action="/send-reply/{{ msg.id }}/">
+                        {% csrf_token %}
+                        <textarea name="reply_message" class="reply-input" rows="3" placeholder="Type your reply..."></textarea>
+                        <button type="submit" class="reply-btn">Send Reply</button>
+                    </form>
+                </div>
+                {% endif %}
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="no-messages">
+                <div style="font-size: 48px;">📭</div>
+                <h3>No messages yet</h3>
+                <p>Send a message to the Tosha Mechanics team</p>
+                <a href="/send-message/" style="color: #e94560; margin-top: 15px; display: inline-block;">Send your first message →</a>
+            </div>
+        {% endif %}
+    </div>
+    
+    <div class="footer">
+        <p>Tosha Mechanics - Engineering & Welding Excellence</p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Quotes - Tosha Mechanics</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: white;
+            min-height: 100vh;
+        }
+        
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #0f3460 0%, #1a1a2e 100%);
+            padding: 40px;
+            text-align: center;
+            border-bottom: 3px solid #e94560;
+        }
+        
+        .header h1 {
+            font-size: 42px;
+            margin-bottom: 10px;
+        }
+        
+        .header h1 span {
+            color: #e94560;
+        }
+        
+        .header p {
+            color: #aaa;
+            font-size: 18px;
+        }
+        
+        /* Navigation */
+        .nav {
+            background: #0f3460;
+            padding: 15px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        
+        .nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            font-size: 16px;
+            padding: 8px 16px;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        
+        .nav a:hover {
+            background: #e94560;
+            color: white;
+        }
+        
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, #0f3460 0%, #16213e 100%);
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            border-bottom: 3px solid #e94560;
+            transition: transform 0.3s;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .stat-number {
+            font-size: 36px;
+            font-weight: bold;
+            color: #e94560;
+        }
+        
+        .stat-label {
+            color: #aaa;
+            margin-top: 10px;
+        }
+        
+        /* Quote Cards Grid */
+        .quotes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .quote-card {
+            background: linear-gradient(135deg, #16213e 0%, #1a1a2e 100%);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s;
+            border: 1px solid #0f3460;
+        }
+        
+        .quote-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border-color: #e94560;
+        }
+        
+        .quote-header {
+            background: #0f3460;
+            padding: 20px;
+            border-left: 4px solid #e94560;
+        }
+        
+        .quote-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .quote-date {
+            font-size: 12px;
+            color: #aaa;
+        }
+        
+        .quote-body {
+            padding: 20px;
+        }
+        
+        .quote-info {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        
+        .quote-icon {
+            font-size: 20px;
+            min-width: 30px;
+        }
+        
+        .quote-text {
+            flex: 1;
+        }
+        
+        .quote-label {
+            font-size: 11px;
+            color: #e94560;
+            text-transform: uppercase;
+            font-weight: bold;
+            margin-bottom: 3px;
+        }
+        
+        .quote-value {
+            font-size: 14px;
+            color: #ddd;
+            line-height: 1.4;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-top: 10px;
+        }
+        
+        .status-pending {
+            background: #f39c12;
+            color: #1a1a2e;
+        }
+        
+        .status-reviewed {
+            background: #3498db;
+            color: white;
+        }
+        
+        .status-approved {
+            background: #27ae60;
+            color: white;
+        }
+        
+        .status-rejected {
+            background: #e74c3c;
+            color: white;
+        }
+        
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 80px 20px;
+            background: #16213e;
+            border-radius: 15px;
+        }
+        
+        .empty-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+        
+        .empty-title {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        
+        .empty-text {
+            color: #aaa;
+            margin-bottom: 30px;
+        }
+        
+        .btn-primary {
+            background: #e94560;
+            color: white;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 8px;
+            display: inline-block;
+            font-weight: bold;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn-primary:hover {
+            background: #d63a55;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(233,69,96,0.3);
+        }
+        
+        /* Footer */
+        .footer {
+            background: #0f3460;
+            text-align: center;
+            padding: 40px;
+            margin-top: 60px;
+        }
+        
+        .footer p {
+            margin: 5px 0;
+            color: #aaa;
+        }
+        
+        .footer strong {
+            color: #e94560;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .quotes-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav a {
+                margin: 0 8px;
+                font-size: 14px;
+            }
+            
+            .header h1 {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📋 My <span>Quote Requests</span></h1>
+        <p>Track and manage your service requests</p>
+    </div>
+    
+    <div class="nav">
+        <a href="/">🏠 HOME</a>
+        <a href="/work/">🔧 OUR WORK</a>
+        <a href="/accounts/dashboard/">📊 DASHBOARD</a>
+        <a href="/quotes/request/">➕ NEW QUOTE</a>
+        <a href="/accounts/logout/">🚪 LOGOUT</a>
+    </div>
+    
+    <div class="container">
+        {% if quotes %}
+        <!-- Stats Summary -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number">{{ quotes|length }}</div>
+                <div class="stat-label">Total Quotes</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">{{ quotes|length }}</div>
+                <div class="stat-label">Active Requests</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">24h</div>
+                <div class="stat-label">Response Time</div>
+            </div>
+        </div>
+        
+        <!-- Quotes Grid -->
+        <h2 style="margin-bottom: 20px;">📌 Your Recent Requests</h2>
+        <div class="quotes-grid">
+            {% for quote in quotes %}
+            <div class="quote-card">
+                <div class="quote-header">
+                    <div class="quote-title">{{ quote.project_title }}</div>
+                    <div class="quote-date">{{ quote.created_at|date:"F d, Y" }} at {{ quote.created_at|date:"g:i A" }}</div>
+                </div>
+                <div class="quote-body">
+                    <div class="quote-info">
+                        <div class="quote-icon">📍</div>
+                        <div class="quote-text">
+                            <div class="quote-label">LOCATION</div>
+                            <div class="quote-value">{{ quote.location }}</div>
+                        </div>
+                    </div>
+                    
+                    <div class="quote-info">
+                        <div class="quote-icon">🔧</div>
+                        <div class="quote-text">
+                            <div class="quote-label">SERVICE TYPE</div>
+                            <div class="quote-value">{{ quote.get_service_type_display }}</div>
+                        </div>
+                    </div>
+                    
+                    <div class="quote-info">
+                        <div class="quote-icon">📝</div>
+                        <div class="quote-text">
+                            <div class="quote-label">DESCRIPTION</div>
+                            <div class="quote-value">{{ quote.description|truncatewords:20 }}</div>
+                        </div>
+                    </div>
+                    
+                    <div class="quote-info">
+                        <div class="quote-icon">📅</div>
+                        <div class="quote-text">
+                            <div class="quote-label">SUBMITTED</div>
+                            <div class="quote-value">{{ quote.created_at|date:"F d, Y" }}</div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <span class="status-badge status-{{ quote.status }}">
+                            {% if quote.status == 'pending' %}⏳ Pending
+                            {% elif quote.status == 'reviewed' %}👀 Reviewed
+                            {% elif quote.status == 'approved' %}✅ Approved
+                            {% elif quote.status == 'rejected' %}❌ Rejected
+                            {% endif %}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <!-- Empty State - No Quotes Yet -->
+        <div class="empty-state">
+            <div class="empty-icon">📭</div>
+            <div class="empty-title">No Quote Requests Yet</div>
+            <div class="empty-text">You haven't submitted any service requests. Need engineering or welding services?</div>
+            <a href="/quotes/request/" class="btn-primary">➕ Request Your First Quote</a>
+        </div>
+        {% endif %}
+    </div>
+    
+    <div class="footer">
+        <p><strong>Tosha Mechanics</strong> - Engineering & Welding Excellence</p>
+        <p>📍 Serving all of Tanzania | 📞 +255 XXX XXX XXX | ✉️ info@toshamechanics.com</p>
+        <p style="font-size: 12px; margin-top: 15px;">© 2026 Tosha Mechanics. All rights reserved.</p>
+    </div>
+</body>
+</html>

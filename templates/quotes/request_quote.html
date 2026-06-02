@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Request Quote - Tosha Mechanics</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background: #1a1a2e;
+            color: white;
+        }
+        .header {
+            background: #0f3460;
+            padding: 30px;
+            text-align: center;
+        }
+        .header h1 {
+            font-size: 32px;
+        }
+        .nav {
+            background: #16213e;
+            padding: 15px;
+            text-align: center;
+        }
+        .nav a {
+            color: #e94560;
+            margin: 0 20px;
+            text-decoration: none;
+            font-size: 18px;
+        }
+        .nav a:hover {
+            color: white;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        .form-card {
+            background: #16213e;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .form-card h2 {
+            color: #e94560;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        .form-card p {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #aaa;
+        }
+        .form-group {
+            margin-bottom: 25px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #e94560;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: #0f3460;
+            color: white;
+            font-size: 16px;
+            font-family: Arial, sans-serif;
+            box-sizing: border-box;
+        }
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border: 2px solid #e94560;
+            background: #1a4a7a;
+        }
+        input::placeholder, textarea::placeholder {
+            color: #888;
+        }
+        button {
+            background: #e94560;
+            color: white;
+            padding: 14px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 10px;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: #d63a55;
+        }
+        .footer {
+            background: #0f3460;
+            text-align: center;
+            padding: 30px;
+            margin-top: 60px;
+        }
+        .footer p {
+            margin: 5px 0;
+        }
+        .info-box {
+            background: #0f3460;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            border-left: 4px solid #e94560;
+        }
+        .info-box p {
+            margin: 0;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>⚙️ Request a Quote 🔧</h1>
+        <p>Tell us about your project and location</p>
+    </div>
+    
+    <div class="nav">
+        <a href="/">HOME</a>
+        <a href="/work/">WORK</a>
+        <a href="/accounts/dashboard/">DASHBOARD</a>
+        <a href="/accounts/logout/">LOGOUT</a>
+    </div>
+    
+    <div class="container">
+        <div class="form-card">
+            <h2>Tell us about your project</h2>
+            <p>We'll get back to you within 24 hours</p>
+            
+            <div class="info-box">
+                <p>💡 <strong>Tips:</strong> Be as detailed as possible about the problem and location so we can provide an accurate quote.</p>
+            </div>
+            
+            <form method="post">
+                {% csrf_token %}
+                
+                <div class="form-group">
+                    <label>📋 {{ form.project_title.label }}</label>
+                    {{ form.project_title }}
+                </div>
+                
+                <div class="form-group">
+                    <label>🔧 {{ form.service_type.label }}</label>
+                    {{ form.service_type }}
+                </div>
+                
+                <div class="form-group">
+                    <label>📍 {{ form.location.label }}</label>
+                    {{ form.location }}
+                    <small style="color: #888; display: block; margin-top: 5px;">City, district, or specific site address</small>
+                </div>
+                
+                <div class="form-group">
+                    <label>📝 {{ form.description.label }}</label>
+                    {{ form.description }}
+                    <small style="color: #888; display: block; margin-top: 5px;">Describe the problem, equipment, materials, or service needed</small>
+                </div>
+                
+                <button type="submit">📤 Submit Quote Request</button>
+            </form>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p><strong>Tosha Mechanics</strong> - Engineering & Welding Excellence</p>
+        <p>📍 Serving all of Tanzania</p>
+        <p style="font-size: 12px;">© 2026 Tosha Mechanics. All rights reserved.</p>
+    </div>
+</body>
+</html>
